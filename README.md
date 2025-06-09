@@ -32,6 +32,36 @@ Store interactions into DynamoDB table UserItemInteractions
 DynamoDB → CSV Export
 Export interactions → CSV → ready for Personalize import
 
+## 🚀 Steps — OTT Content Recommendation System Demo
+
+**Step 1 — Kafka Topic:** `ott-view-events` → ✅ *(created Kafka topic to capture user view events)*
+
+**Step 2 — Kafka Producer:** `producer-code.py` → ✅ *(simulated user watch events → sent to Kafka topic `ott-view-events`)*
+
+**Step 3 — Kafka Consumer:** `consumer-dynamodb.py` → ✅ *(listened on topic → processed events → stored user-item interactions in DynamoDB table `UserItemInteractions`)*
+
+**Step 4 — DynamoDB Table:** `UserItemInteractions` → ✅ *(created table with `userId`, `itemId`, `eventType`, `watchCount`, `lastWatchedTimestamp`)*
+
+**Step 5 — DynamoDB Export to CSV:** `newdynamoapi.py` or `personalize-interactions.py` → ✅ *(exported DynamoDB interactions → CSV `personalize-interactions.csv` → required format for Personalize)*
+
+**Step 6 — Upload CSV to S3:** → ✅ *(uploaded CSV to `s3://ott-demo-bucketjune7/personalize/interactions/`)*
+
+**Step 7 — Personalize Dataset Group:** `OTT-Recommendation-Group` → ✅ *(created Dataset Group in Amazon Personalize)*
+
+**Step 8 — Personalize Dataset:** `OTT-Interactions` → ✅ *(created Interactions Dataset with required schema → `user_id`, `item_id`, `event_type`, `timestamp`)*
+
+**Step 9 — Dataset Import Job:** → ✅ *(imported CSV from S3 → Personalize Dataset → Import job completed successfully)*
+
+**Step 10 — Solution:** `solution-OTT-June9` → ✅ *(created Solution using `aws-user-personalization` recipe)*
+
+**Step 11 — Solution Version:** → ✅ *(created Solution Version → triggered model training → Solution Version ACTIVE)*
+
+**Step 12 — Campaign:** `OTT-Recommendation-Campaign` → ✅ *(deployed Campaign → live API endpoint created → ACTIVE)*
+
+**Step 13 — Python API Test:** `personalize_get_recommendations.py` → ✅ *(tested Personalize API → retrieved personalized movie recommendations for userId → working successfully)*
+
+
+
 Amazon Personalize
 
 ✅ Dataset Group → OTT-Recommendation-Group
