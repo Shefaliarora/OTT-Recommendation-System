@@ -59,6 +59,17 @@ Use Personalize get_recommendations(userId) API → test recommendations
 
 7️⃣ Test recommendations using Python
 
+File	Purpose
+producer-code.py	Generate real-time user view events → Kafka
+
+consumer-dynamodb.py	Store events in DynamoDB → UserItemInteractions
+
+newdynamoapi.py	Export DynamoDB → CSV → Personalize format
+
+generate_interactions.py	Generate synthetic interactions for Personalize
+
+personalize_get_recommendations.py	Test API → Get movie recommendations
+
 Example Output
 
 Recommendations for user1:
